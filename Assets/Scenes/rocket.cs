@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class rocket : MonoBehaviour {
 
+    Rigidbody rigidBody;
 	// Use this for initialization
 	void Start () {
-		
+        rigidBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -20,7 +21,7 @@ public class rocket : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Space pressed");
+            rigidBody.AddRelativeForce(Vector3.up);
         }
         else if (Input.GetKey(KeyCode.A))
         {
