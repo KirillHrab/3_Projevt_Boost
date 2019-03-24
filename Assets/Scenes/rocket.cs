@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class rocket : MonoBehaviour {
 
+   [SerializeField] float rcsThrust = 100f;
+   [SerializeField] float mainThrust = 100f;
+
     Rigidbody rigidBody;
     AudioSource m_MyAudioSource;
 
@@ -17,34 +20,53 @@ public class rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ProcessInput();
+        MovementRocket();
 	}
-
-    private void ProcessInput()
+    void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rigidBody.AddRelativeForce(Vector3.up);
+        print("Colision");
+    }
 
-            if (m_MyAudioSource.isPlaying == false)
+    private void MovementRocket() //we work on our input keys whitch help rocket to rotate and fly
+    {
+        Thrust_of_rocket();
+        Rotate_of_Rocket();
+    }
+
+
+    private void Thrust_of_rocket()
+    {
+        float ThrustThisFrame = mainThrust * Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space))  //if we hit space, what happend
+        {
+            rigidBody.AddRelativeForce(Vector3.up * ThrustThisFrame);
+
+            if (m_MyAudioSource.isPlaying == false) // if audio effect sleep we awake it
             {
                 m_MyAudioSource.Play();
             }
         }
-        else 
+        else
         {
             m_MyAudioSource.Stop();
         }
-        
-         if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(Vector3.forward);
-            print("Left");
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(-Vector3.forward);  
-            print("Right");         
-        }
     }
+
+    private void Rotate_of_Rocket()
+    {
+        rigidBody.freezeRotation = true;
+        float rotationThisFrame = rcsThrust * Time.deltaTime;
+        if (Input.GetKey(KeyCode.A)) // A
+        {            
+            transform.Rotate(Vector3.forward * rotationThisFrame);
+        }
+        else if (Input.GetKey(KeyCode.D)) // D
+        {
+            transform.Rotate(-Vector3.forward * rotationThisFrame);
+        }
+
+        rigidBody.freezeRotation = false;
+    }
+
+   
 }
