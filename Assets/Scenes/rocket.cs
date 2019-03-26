@@ -24,7 +24,17 @@ public class rocket : MonoBehaviour {
 	}
     void OnCollisionEnter(Collision collision)
     {
-        print("Colision");
+        switch(collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+            case "Unfriendly":
+                print("DEAD");
+                break;
+            default:
+                break;
+        }
     }
 
     private void MovementRocket() //we work on our input keys whitch help rocket to rotate and fly
