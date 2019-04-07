@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class rocket : MonoBehaviour {
 
-   [SerializeField] float rcsThrust = 100f;
+   float rcsThrust = 100f;
    [SerializeField] float mainThrust = 100f;
 
     Rigidbody rigidBody;
@@ -22,7 +22,7 @@ public class rocket : MonoBehaviour {
 	void Update () {
         MovementRocket();
 	}
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)//use Colision for objeckt and rocket
     {
         switch(collision.gameObject.tag)
         {
@@ -31,8 +31,6 @@ public class rocket : MonoBehaviour {
                 break;
             case "Unfriendly":
                 print("DEAD");
-                break;
-            default:
                 break;
         }
     }
