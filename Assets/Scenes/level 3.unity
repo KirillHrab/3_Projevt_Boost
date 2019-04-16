@@ -2118,6 +2118,11 @@ Prefab:
       propertyPath: rcsThrust
       value: 250.83
       objectReference: {fileID: 0}
+    - target: {fileID: 82503989683253186, guid: a16f3b1f23b348140a4bd9d1d9532587,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ac847c50b1c8f5140aa04812d9ba88dc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a16f3b1f23b348140a4bd9d1d9532587, type: 2}
   m_IsPrefabAsset: 0
@@ -3251,7 +3256,7 @@ Transform:
   - {fileID: 1489668104}
   - {fileID: 533725697}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1834860284
 GameObject:
@@ -3336,7 +3341,7 @@ Transform:
   m_LocalScale: {x: 100, y: 30, z: 30}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1899029682
 Prefab:

@@ -3,13 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class rocket : MonoBehaviour {
 
-   [SerializeField] float rcsThrust = 100f;
-   [SerializeField] float mainThrust = 100f;
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float mainThrust = 100f;
+    
+    // Audio for our  Rocket
+    [SerializeField] AudioClip MainEngine;
+    [SerializeField] AudioClip Death;
+    [SerializeField] AudioClip WinLevel;
+    
+    // Particle systems
+    [SerializeField] ParticleSystem MaineEngineParticle; 
+    [SerializeField] ParticleSystem DeathParticle;
+    [SerializeField] ParticleSystem WinLevelParticle;
 
     Rigidbody rigidBody;
     AudioSource m_MyAudioSource;
-
-    enum State { Alive, Dying, Transcending }; // behaviour of rocket when it cosision with something
+   
+    // behaviour of rocket when it cosision with something
+    enum State { Alive, Dying, Transcending }; 
     State state = State.Alive;
 
     // Use this for initialization
@@ -27,7 +38,8 @@ public class rocket : MonoBehaviour {
             Rotate_of_Rocket();
         }
     }
-    void OnCollisionEnter(Collision collision)//use Colision for objeckt and rocket
+    //use Colision for objeckt and rocket
+    void OnCollisionEnter(Collision collision)
     {
         if (state != State.Alive) { return;}// ignore colisions when I dead
         switch(collision.gameObject.tag)
@@ -35,18 +47,36 @@ public class rocket : MonoBehaviour {
             case "Friendly":
                 break;
             case "Finish":
-                state = State.Transcending;
-               Invoke("LoadNextLevel", 1f); // Invoke help to hold for 1 second befor use next level
+                Start_win();
                 break;
             case "Finish1":
+                m_MyAudioSource.PlayOneShot(WinLevel);
                 SceneManager.LoadScene(2);
                 break;
             default:
-                state = State.Dying;
-                Invoke("LoadFirstLevel", 1f);
+                Start_Death();
                 break;
         }
 
+    }
+
+    private void Start_Death()
+    {
+        state = State.Dying;
+        m_MyAudioSource.Stop();
+        m_MyAudioSource.PlayOneShot(Death);
+        DeathParticle.Play();
+        Invoke("LoadFirstLevel", 1f);
+
+    }
+
+    private void Start_win()
+    {
+        state = State.Transcending;
+        m_MyAudioSource.Stop();
+        m_MyAudioSource.PlayOneShot(WinLevel);
+        WinLevelParticle.Play();
+        Invoke("LoadNextLevel", 1f); // Invoke help to hold for 1 second befor use next level
     }
 
     private void LoadNextLevel() 
@@ -55,8 +85,8 @@ public class rocket : MonoBehaviour {
     }
 
     private void LoadFirstLevel()
-    {
-            SceneManager.LoadScene(0);
+    {  
+        SceneManager.LoadScene(0);
     }
 
     private void Thrust_of_rocket()
@@ -64,16 +94,23 @@ public class rocket : MonoBehaviour {
         float ThrustThisFrame = mainThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.Space))  //if we hit space, what happend
         {
-            rigidBody.AddRelativeForce(Vector3.up * ThrustThisFrame);
-
-            if (m_MyAudioSource.isPlaying == false) // if audio effect sleep we awake it
-            {
-                m_MyAudioSource.Play();
-            }
+            ApllyThrust(ThrustThisFrame);
+            MaineEngineParticle.Play();
         }
         else
         {
             m_MyAudioSource.Stop();
+            MaineEngineParticle.Stop();
+        }
+    }
+
+    private void ApllyThrust(float ThrustThisFrame)
+    {
+        rigidBody.AddRelativeForce(Vector3.up * ThrustThisFrame);
+
+        if (!m_MyAudioSource.isPlaying) // if audio effect sleep we awake it
+        {
+            m_MyAudioSource.PlayOneShot(MainEngine);
         }
     }
 
