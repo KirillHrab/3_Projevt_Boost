@@ -1,46 +1,63 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class rocket : MonoBehaviour {
 
-   float rcsThrust = 100f;
+   [SerializeField] float rcsThrust = 100f;
    [SerializeField] float mainThrust = 100f;
 
     Rigidbody rigidBody;
     AudioSource m_MyAudioSource;
 
+    enum State { Alive, Dying, Transcending }; // behaviour of rocket when it cosision with something
+    State state = State.Alive;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rigidBody = GetComponent<Rigidbody>();
         m_MyAudioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        MovementRocket();
-	}
+        if (state == State.Alive)
+        {
+            Thrust_of_rocket(); //we work on our input keys whitch help rocket to rotate and fly
+            Rotate_of_Rocket();
+        }
+    }
     void OnCollisionEnter(Collision collision)//use Colision for objeckt and rocket
     {
+        if (state != State.Alive) { return;}// ignore colisions when I dead
         switch(collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
                 break;
-            case "Unfriendly":
-                print("DEAD");
+            case "Finish":
+                state = State.Transcending;
+               Invoke("LoadNextLevel", 1f); // Invoke help to hold for 1 second befor use next level
+                break;
+            case "Finish1":
+                SceneManager.LoadScene(2);
+                break;
+            default:
+                state = State.Dying;
+                Invoke("LoadFirstLevel", 1f);
                 break;
         }
+
     }
 
-    private void MovementRocket() //we work on our input keys whitch help rocket to rotate and fly
+    private void LoadNextLevel() 
     {
-        Thrust_of_rocket();
-        Rotate_of_Rocket();
+        SceneManager.LoadScene(1);
     }
 
+    private void LoadFirstLevel()
+    {
+            SceneManager.LoadScene(0);
+    }
 
     private void Thrust_of_rocket()
     {
