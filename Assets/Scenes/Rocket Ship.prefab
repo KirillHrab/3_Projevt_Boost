@@ -306,13 +306,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1752123495731648}
-  m_LocalRotation: {x: 0.75105983, y: -0, z: -0, w: 0.6602343}
-  m_LocalPosition: {x: 0, y: -2.09, z: -0.27}
-  m_LocalScale: {x: 0.44642, y: 0.44642, z: 0.44642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.33, z: 0}
+  m_LocalScale: {x: 0.54487, y: 0.54487, z: 0.54487}
   m_Children: []
   m_Father: {fileID: 4212060054009634}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 97.36401, y: -0.000015258789, z: -0.000015258789}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4668838170347778
 Transform:
   m_ObjectHideFlags: 1
@@ -358,13 +358,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1506151197704420}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.05, y: -0.64, z: -0.02}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4212060054009634}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4895439093920488
 Transform:
   m_ObjectHideFlags: 1
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rcsThrust: 250.83
-  mainThrust: 60.8
+  mainThrust: 3000
   MainEngine: {fileID: 8300000, guid: 24a179e21c6655a458894a2818128f30, type: 3}
   Death: {fileID: 8300000, guid: 6b81594e7c02c90459b647fa498b5d6a, type: 3}
   WinLevel: {fileID: 8300000, guid: 027d5129b58ccd04188e02f812893c06, type: 3}

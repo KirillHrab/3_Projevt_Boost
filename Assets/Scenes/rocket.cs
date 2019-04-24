@@ -106,7 +106,7 @@ public class rocket : MonoBehaviour {
 
     private void ApllyThrust(float ThrustThisFrame)
     {
-        rigidBody.AddRelativeForce(Vector3.up * ThrustThisFrame);
+        rigidBody.AddRelativeForce(Vector3.up * ThrustThisFrame * Time.deltaTime);
 
         if (!m_MyAudioSource.isPlaying) // if audio effect sleep we awake it
         {
