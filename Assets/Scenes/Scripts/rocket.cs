@@ -24,6 +24,7 @@ public class rocket : MonoBehaviour {
     // behaviour of rocket when it cosision with something
     enum State { Alive, Dying, Transcending }; 
     State state = State.Alive;
+    bool collisionsDisabled = false;
 
     // Use this for initialization
     void Start()
@@ -37,13 +38,18 @@ public class rocket : MonoBehaviour {
         if (state == State.Alive)
         {
             Thrust_of_rocket(); //we work on our input keys whitch help rocket to rotate and fly
-            Rotate_of_Rocket();
+            Rotate_of_Rocket();          
+        }
+        if (Debug.isDebugBuild)
+        {
+            debugKeys();
         }
     }
     //use Colision for objeckt and rocket
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive) { return;}// ignore colisions when I dead
+
+        if (state != State.Alive || collisionsDisabled) { return;}// ignore colisions when I dead
         switch(collision.gameObject.tag)
         {
             case "Friendly":
@@ -52,6 +58,7 @@ public class rocket : MonoBehaviour {
                 Start_win();
                 break;
             case "Finish1":
+                Start_win();
                 m_MyAudioSource.PlayOneShot(WinLevel);
                 SceneManager.LoadScene(2);
                 break;
@@ -131,6 +138,16 @@ public class rocket : MonoBehaviour {
 
         rigidBody.freezeRotation = false;
     }
+    private void debugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled;
+        }
+    }
 
-   
 }
