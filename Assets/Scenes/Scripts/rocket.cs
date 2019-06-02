@@ -56,12 +56,7 @@ public class rocket : MonoBehaviour {
                 break;
             case "Finish":
                 Start_win();
-                break;
-            case "Finish1":
-                Start_win();
-                m_MyAudioSource.PlayOneShot(WinLevel);
-                SceneManager.LoadScene(2);
-                break;
+                break;          
             default:
                 Start_Death();
                 break;
@@ -90,7 +85,15 @@ public class rocket : MonoBehaviour {
 
     private void LoadNextLevel() 
     {
-        SceneManager.LoadScene(1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        int maxSceneNumber = SceneManager.sceneCountInBuildSettings;
+
+        if (nextSceneIndex == maxSceneNumber)
+        {
+            SceneManager.LoadScene(0);
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     private void LoadFirstLevel()

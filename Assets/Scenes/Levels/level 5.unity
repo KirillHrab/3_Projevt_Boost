@@ -753,7 +753,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1491934631930058, guid: 95422e193d5ac384eb41a77c9f14530f, type: 2}
       propertyPath: m_TagString
-      value: Finish1
+      value: Finish
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95422e193d5ac384eb41a77c9f14530f, type: 2}
