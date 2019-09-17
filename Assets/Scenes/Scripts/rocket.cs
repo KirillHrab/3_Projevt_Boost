@@ -22,7 +22,7 @@ public class rocket : MonoBehaviour {
     AudioSource m_MyAudioSource;
    
     // behaviour of rocket when it cosision with something
-    enum State { Alive, Dying, Transcending }; 
+    enum State { Alive, Dying, Transcending}; 
     State state = State.Alive;
     bool collisionsDisabled = false;
 
@@ -107,14 +107,19 @@ public class rocket : MonoBehaviour {
         float ThrustThisFrame = mainThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.Space))  //if we hit space, what happend
         {
-            ApllyThrust(ThrustThisFrame);
-            MaineEngineParticle.Play();
+            NewMethod(ThrustThisFrame);
         }
         else
         {
             m_MyAudioSource.Stop();
             MaineEngineParticle.Stop();
         }
+    }
+
+    private void NewMethod(float ThrustThisFrame)
+    {
+        ApllyThrust(ThrustThisFrame);
+        MaineEngineParticle.Play();
     }
 
     private void ApllyThrust(float ThrustThisFrame)
